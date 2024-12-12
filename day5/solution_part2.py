@@ -2,15 +2,18 @@
 rule_dictionary = {}
 printing_instructions = []
 
+
 def get_rules():
     """global getter for rule_dictionary"""
     global rule_dictionary
     return rule_dictionary
 
+
 def get_printing_instructions():
     """global getter for printing_instructions"""
     global printing_instructions
     return printing_instructions
+
 
 def generate_printing_rules_and_instructions(file_name):
     """Generate the printing rules the update list must follow to be valid"""
@@ -25,12 +28,12 @@ def generate_printing_rules_and_instructions(file_name):
             elif "," in temp_value:
                 printing_instructions.append(temp_value)
 
-def find_middle_value(instruction):
+
+def find_middle_value(pages):
     """Find the middle value to check for correctness"""
-    list_of_strings = instruction.split(',')
-    list_of_integers = [int(x) for x in list_of_strings]
-    mid_index = int(len(list_of_integers)/2)
-    return list_of_integers [mid_index]
+    mid_index = len(pages)//2
+    return int(pages[mid_index])
+
 
 def validate_instructions():
     """main function for validating printing instructions against update rules"""
@@ -39,17 +42,33 @@ def validate_instructions():
     total = 0
 
     for instruction in instructions:
-        count = validate_current_instruction(rules, instruction)
-        total = total + count
+        pages = instruction.split(',')
+        is_valid, i, j = validate_current_instruction(rules, pages)
+        if not is_valid:
+            while True:
+                print(f'instruction = {pages} i = {i} j= {j}')
+                pages = swap_positons(pages, i, j)
+                is_valid, i, j = validate_current_instruction(rules, pages)
+                if is_valid:
+                    total = total + find_middle_value(pages)
+                    break
+        else:
+            #This was correct first time just pass
+            pass
     return total
 
-def validate_current_instruction(rules, instruction):
+
+def swap_positons(pages, i, j):
+    """takes a list and two positions you want to swap"""
+    pages[i], pages[j] = pages[j], pages[i]
+    return pages
+
+
+def validate_current_instruction(rules, pages):
     """validates passed printing instruction against rule set and returns value of middle page"""
-    pages = instruction.split(',')
-    for i in range(0,len(pages)):
-        for j in range(i+1,len(pages)):
+    for i in range(0, len(pages)):
+        for j in range(i+1, len(pages)):
             temp = pages[j]+'|'+pages[i]
-            print(temp)
             if temp in rules:
-                return 0
-    return find_middle_value(instruction)
+                return False, i, j
+    return True, i, j
