@@ -24,7 +24,7 @@ class TestGuardPathSolution(unittest.TestCase):
         # Example: Create a 10x10 board
         rows, cols = 10, 10
         warehouse = create_empty_warehouse(rows, cols, file_name)
-        distinct_path_traveled = 18
+        distinct_path_traveled = simulate_guards_path(warehouse)
         self.assertEqual(distinct_path_traveled, 18, "these are not equal")
 
 
