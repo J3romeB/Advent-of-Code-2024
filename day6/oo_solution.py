@@ -1,5 +1,7 @@
 """AoC 2024 Day 6 Guards Path Part 1 Solution"""
-position = [][]
+class Guard(object):
+    def __init__(self, mylist=[]):
+        self.mylist = mylist
 
 def build_warehouse_map(file_name, warehouse_map):
     """Takes in a file and created 2DList"""
@@ -8,7 +10,8 @@ def build_warehouse_map(file_name, warehouse_map):
             for c, alpha in enumerate(line.rstrip('\n')):
                 update_warehouse_map(warehouse_map, r, c, alpha)
                 if alpha == "^":
-                    position = [r][c]
+                    guard_x = r
+                    guard_y = c
 
 
 def update_warehouse_map(board, row, col, symbol):

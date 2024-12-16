@@ -6,9 +6,16 @@ from day6.solution import create_empty_warehouse
 
 class TestGuardPathSolution(unittest.TestCase):
     """Main Testing Class"""
-
-    def test_builing_the_map(self):
+    def test_builing_the_map_getting_guard_position_for_test_input(self):
         """build the map"""
+        here = os.path.dirname(os.path.abspath(__file__))
+        file_name = os.path.join(here, 'test_input.txt')
+        # Example: Create a 10x10 board
+        rows, cols = 10, 10
+        warehouse = create_empty_warehouse(rows, cols, file_name)
+        distinct_path_traveled = 18
+        self.assertEqual(distinct_path_traveled, 18, "these are not equal")
+
         None
 
     def test_count_guards_path_for_test_input(self):
