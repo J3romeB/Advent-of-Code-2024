@@ -2,10 +2,9 @@ import math
 
 count = 0
 values_to_check = []
-with open("day7\\test_input.txt", 'r', encoding='utf-8') as file:
+with open("day7\\input.txt", 'r', encoding='utf-8') as file:
     for line in file:
         values_to_check.append(line.rstrip('\n'))
-#store as string
 
 #loop over values
 for value in values_to_check:
@@ -24,10 +23,28 @@ for value in values_to_check:
     elif math.prod(numbers) == answer_for_validation:
         count += answer_for_validation
     else:
-        pass
-        
+        continue_list = []
+        for i, number in enumerate(numbers):
+            if i == 0:
+                continue_list.append(number)
+            else:
+                temp_list = []
+                for i, current_item in enumerate(continue_list):
+                    temp_add = current_item + number
+                    temp_multi = current_item * number
 
+                    if temp_add <= answer_for_validation:
+                        temp_list.append(temp_add)
+                
+                    if temp_multi <= answer_for_validation:
+                        temp_list.append(temp_multi)
+                continue_list = temp_list.copy()
 
-
-
-# If any equaled the vale add the value to count
+        if answer_for_validation in continue_list:
+             count += answer_for_validation
+            #check if we are still under the answer for validation for each of those
+                #If under continue down that tree
+                # for each of the values we have, 
+                    #Add the next value and store it in a new spot,
+                    #Multiply it by the next value and store it in a new spot
+print(count)
