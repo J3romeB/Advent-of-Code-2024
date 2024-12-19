@@ -6,18 +6,12 @@ with open("day7\\input.txt", 'r', encoding='utf-8') as file:
     for line in file:
         values_to_check.append(line.rstrip('\n'))
 
-#loop over values
 for value in values_to_check:
-    #split on : to get value vs others
     equation = value.split(": ")
     answer_for_validation = int(equation[0])
-    #split others on space to get individual integers (make them integers)
 
     numbers = [int(x) for x in equation[1].split(" ")]
 
-    # Try adding all
-    # Try multiply all
-    # Try all the combos
     if sum(numbers) == answer_for_validation:
         count += answer_for_validation
     elif math.prod(numbers) == answer_for_validation:
@@ -46,9 +40,4 @@ for value in values_to_check:
 
         if answer_for_validation in continue_list:
              count += answer_for_validation
-            #check if we are still under the answer for validation for each of those
-                #If under continue down that tree
-                # for each of the values we have, 
-                    #Add the next value and store it in a new spot,
-                    #Multiply it by the next value and store it in a new spot
 print(count)
