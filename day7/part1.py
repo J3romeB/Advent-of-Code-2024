@@ -32,12 +32,16 @@ for value in values_to_check:
                 for i, current_item in enumerate(continue_list):
                     temp_add = current_item + number
                     temp_multi = current_item * number
+                    temp_combo = int(str(current_item)+str(number))
 
                     if temp_add <= answer_for_validation:
                         temp_list.append(temp_add)
                 
                     if temp_multi <= answer_for_validation:
                         temp_list.append(temp_multi)
+                    
+                    if temp_combo <= answer_for_validation:
+                        temp_list.append(temp_combo)
                 continue_list = temp_list.copy()
 
         if answer_for_validation in continue_list:
